@@ -1,0 +1,169 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Available Subjects
+{% endblock %}
+
+{% block content %}
+
+<h1>Available Subjects</h1>
+
+<form method="GET">
+
+    <label>Search</label>
+
+    <input
+        type="text"
+        name="q"
+        value="{{ q }}"
+        placeholder="Search subject..."
+    >
+
+    <label>Department</label>
+
+    <select name="department">
+
+        <option value="">
+            All Departments
+        </option>
+
+        {% for d in departments %}
+
+        <option
+            value="{{ d }}"
+            {% if dept == d %}selected{% endif %}
+        >
+            {{ d }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <label>Credits</label>
+
+    <select name="credits">
+
+        <option value="">
+            All Credits
+        </option>
+
+        {% for c in credit_options %}
+
+        <option
+            value="{{ c }}"
+            {% if credits == c|string %}selected{% endif %}
+        >
+            {{ c }} Credits
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <button class="btn" type="submit">
+        Search
+    </button>
+
+    <a class="btn btn-secondary" href="{{ url_for('subjects') }}">
+        Clear
+    </a>
+
+</form>
+
+<br>
+
+<table>
+
+    <tr>
+        <th>Code</th>
+        <th>Subject</th>
+        <th>Department</th>
+        <th>Credits</th>
+        <th>Available Seats</th>
+        <th>Action</th>
+    </tr>
+
+    {% for subject in subjects %}
+
+    <tr>
+
+        <td>
+            <strong>{{ subject.subject_code }}</strong>
+        </td>
+
+        <td>
+            {{ subject.subject_name }}
+        </td>
+
+        <td>
+            <span class="badge">
+                {{ subject.department }}
+            </span>
+        </td>
+
+        <td>
+            {{ subject.credits }}
+        </td>
+
+        <td>
+            {{ subject.available_seats }}
+            /
+            {{ subject.total_seats }}
+        </td>
+
+        <td>
+
+            {% if subject.id in selected_ids %}
+
+                <span class="badge">
+                    Already Selected
+                </span>
+
+            {% elif subject.available_seats > 0 and session.get('student_db_id') %}
+
+                <a
+                    class="btn btn-success"
+                    href="{{ url_for('select_subject', subject_id=subject.id) }}"
+                >
+                    Select
+                </a>
+
+            {% elif subject.available_seats <= 0 %}
+
+                <span class="badge">
+                    Full
+                </span>
+
+            {% else %}
+
+                <a
+                    class="btn"
+                    href="{{ url_for('login') }}"
+                >
+                    Login to Select
+                </a>
+
+            {% endif %}
+
+        </td>
+
+    </tr>
+
+    {% else %}
+
+    <tr>
+
+        <td colspan="6">
+            No subjects found.
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+

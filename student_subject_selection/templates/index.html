@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Home - Subject Selection System
+{% endblock %}
+
+{% block content %}
+
+<div class="hero">
+
+    <h1>Student Subject Selection System</h1>
+
+    <p>
+        Select your subjects easily and efficiently.
+    </p>
+
+    <p>
+        Powered by Python, Flask, SQLite and DAA algorithms.
+    </p>
+
+    <br>
+
+    <a class="btn" href="{{ url_for('login') }}">
+        Student Login
+    </a>
+
+    <a class="btn btn-secondary" href="{{ url_for('subjects') }}">
+        View Subjects
+    </a>
+
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Students</h3>
+        <div class="number">
+            {{ stats.students }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Total Subjects</h3>
+        <div class="number">
+            {{ stats.subjects }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Available Seats</h3>
+        <div class="number">
+            {{ stats.seats }}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Admin Dashboard 🛠️</h1>
+
+<p>
+    Manage students, subjects and seat availability.
+</p>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Students</h3>
+
+        <div class="number">
+            {{ stats.students }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Total Selections</h3>
+
+        <div class="number">
+            {{ stats.selections }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Available Seats</h3>
+
+        <div class="number">
+            {{ stats.available }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Total Seats</h3>
+
+        <div class="number">
+            {{ stats.total }}
+        </div>
+    </div>
+
+</div>
+
+<a
+    class="btn btn-success"
+    href="{{ url_for('add_subject') }}"
+>
+    + Add Subject
+</a>
+
+<a
+    class="btn"
+    href="{{ url_for('algorithm') }}"
+>
+    Run DAA Algorithm
+</a>
+
+<br><br>
+
+<h2>Subject Management</h2>
+
+<table>
+
+    <tr>
+        <th>Code</th>
+        <th>Subject</th>
+        <th>Department</th>
+        <th>Credits</th>
+        <th>Seats</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for subject in subjects %}
+
+    <tr>
+
+        <td>
+            {{ subject.subject_code }}
+        </td>
+
+        <td>
+            {{ subject.subject_name }}
+        </td>
+
+        <td>
+            {{ subject.department }}
+        </td>
+
+        <td>
+            {{ subject.credits }}
+        </td>
+
+        <td>
+            {{ subject.available_seats }}
+            /
+            {{ subject.total_seats }}
+        </td>
+
+        <td>
+
+            <a
+                class="btn"
+                href="{{ url_for('edit_subject', id=subject.id) }}"
+            >
+                Edit
+            </a>
+
+            <a
+                class="btn btn-danger"
+                href="{{ url_for('delete_subject', id=subject.id) }}"
+                onclick="return confirm('Delete this subject?')"
+            >
+                Delete
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+

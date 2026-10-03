@@ -1,0 +1,95 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+My Selections
+{% endblock %}
+
+{% block content %}
+
+<h1>My Selected Subjects</h1>
+
+<div class="card">
+
+    <h3>
+        Total Credits:
+        <span class="number">{{ total_credits }}</span>
+    </h3>
+
+</div>
+
+<br>
+
+{% if selections %}
+
+<table>
+
+    <tr>
+        <th>Subject Code</th>
+        <th>Subject</th>
+        <th>Credits</th>
+        <th>Selected At</th>
+        <th>Action</th>
+    </tr>
+
+    {% for subject in selections %}
+
+    <tr>
+
+        <td>
+            {{ subject.subject_code }}
+        </td>
+
+        <td>
+            {{ subject.subject_name }}
+        </td>
+
+        <td>
+            {{ subject.credits }}
+        </td>
+
+        <td>
+            {{ subject.selected_at }}
+        </td>
+
+        <td>
+
+            <a
+                class="btn btn-danger"
+                href="{{ url_for('remove_selection', selection_id=subject.id) }}"
+                onclick="return confirm('Remove this subject?')"
+            >
+                Remove
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<div class="card">
+
+    <h3>No subjects selected.</h3>
+
+    <p>
+        Go to the subjects page to select your subjects.
+    </p>
+
+    <a
+        class="btn"
+        href="{{ url_for('subjects') }}"
+    >
+        Browse Subjects
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
+

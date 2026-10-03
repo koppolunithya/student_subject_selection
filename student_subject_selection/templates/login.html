@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<div style="max-width:500px;margin:auto;">
+
+    <h1>Login</h1>
+
+    <p>
+        Login as a student or administrator.
+    </p>
+
+    <form method="POST">
+
+        <label>Student ID / Admin Username</label>
+
+        <input
+            type="text"
+            name="student_id"
+            placeholder="Example: S101"
+            required
+        >
+
+        <label>Password</label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            required
+        >
+
+        <button class="btn" type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <div class="card" style="margin-top:20px;">
+
+        <h3>Demo Login</h3>
+
+        <p>
+            <strong>Student:</strong>
+            S101 / pass123
+        </p>
+
+        <p>
+            <strong>Admin:</strong>
+            admin / admin123
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
